@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+<head>
+<title>OxyPulse</title>
+<style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        .graph .axis {
+            stroke-width: 1;
+        }
+
+        .graph .axis .tick line {
+            stroke: black;
+        }
+
+        .graph .axis .tick text {
+            fill: black;
+            font-size: 0.7em;
+        }
+
+        .graph .axis .domain {
+            fill: none;
+            stroke: black;
+        }
+
+        .graph .group {
+            fill: none;
+            stroke: black;
+            stroke-width: 1.5;
+        }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js" charset="utf-8"></script>
+
+
+</head>
+<body>
+<div id="spark-login" />
+<div class="graph"></div>
+
+
+<!-- <script src="./spark.js"></script> -->
+<script src="//cdn.jsdelivr.net/sparkjs/0.2.6/spark.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript">
+/* ------------- SparkIO Interface Implementation ----------------*/
+/* Opus Logica */
+
+spark.login({username: 'jjangsangy@gmail.com', password: 'sparky'});
+
+spark.on('login', function(err, body) {
+  console.log('API call completed on Login event:', body);
+  console.log(spark.getEventStream);
+  spark.getEventStream('isRed','54ff6e066678574954300467',function(data){ console.log("In Callback...") });
+
+
+    /* Retrieve Variables For Spark Device */
+    spark.listDevices(function(err, devices) {
+         /* Retrieve Currently Connected Device */
+        spark.getDevice('54ff6e066678574954300467', function(err, device) {
+        console.log('Device name: ' + device.name);
+        console.log(device);
+        console.log("Loading Device Variables...");
+
+
+
+/* KEYPRESS ATTEMPT
+        var isRunning = true;
+        $(window).keypress(function(event) {
+            console.log("The Keypress Code");
+            if(event.keyCode == 113) {
+                    isRunning = false;
+            }
+
+        });
+*/
+/*
+        var count = 0;
+       while(count < 10) {
+            device.getVariable('isRed', function(err, data) {
+              if (err) {
+                console.log('An error occurred while getting attrs:', err);
+              } else {
+                console.log('Core attr retrieved successfully:', data);
+              }
+            });
+
+
+           device.getVariable('redIntensity', function(err, data) {
+                  if (err) {
+                    console.log('An error occurred while getting attrs:', err);
+                  } else {
+                    console.log('Core attr retrieved successfully:', data);
+                  }
+                });
+
+             device.getVariable('infraredInte', function(err, data) {
+                  if (err) {
+                    console.log('An error occurred while getting attrs:', err);
+                  } else {
+                    console.log('Core attr retrieved successfully:', data);
+                  }
+                });
+
+                count++;
+
+            }
+            */
+        });
+
+    });
+
+});
+
+        /* D3 Implementation */
+        var limit = 60 * 1,
+            duration = 750,
+            now = new Date(Date.now() - duration)
+
+        var width = 500,
+            height = 200
+
+        var groups = {
+            current: {
+                value: 0,
+                color: 'orange',
+                data: d3.range(limit).map(function() {
+                    return 0
+                })
+            },
+            target: {
+                value: 0,
+                color: 'green',
+                data: d3.range(limit).map(function() {
+                    return 0
+                })
+            },
+            output: {
+                value: 0,
+                color: 'grey',
+                data: d3.range(limit).map(function() {
+                    return 0
+                })
+            }
+        }
+
+        var x = d3.time.scale()
+            .domain([now - (limit - 2), now - duration])
+            .range([0, width])
+
+        var y = d3.scale.linear()
+            .domain([0, 100])
+            .range([height, 0])
+
+        var line = d3.svg.line()
+            .interpolate('basis')
+            .x(function(d, i) {
+                return x(now - (limit - 1 - i) * duration)
+            })
+            .y(function(d) {
+                return y(d)
+            })
+
+        var svg = d3.select('.graph').append('svg')
+            .attr('class', 'chart')
+            .attr('width', width)
+            .attr('height', height + 50)
+
+        var axis = svg.append('g')
+            .attr('class', 'x axis')
+            .attr('transform', 'translate(0,' + height + ')')
+            .call(x.axis = d3.svg.axis().scale(x).orient('bottom'))
+
+        var paths = svg.append('g')
+
+        for (var name in groups) {
+            var group = groups[name]
+            group.path = paths.append('path')
+                .data([group.data])
+                .attr('class', name + ' group')
+                .style('stroke', group.color)
+        }
+
+        function tick() {
+        now = new Date()
+
+            // Add new values
+            for (var name in groups) {
+                var group = groups[name]
+                //group.data.push(group.value) // Real values arrive at irregular intervals
+                group.data.push(20 + Math.random() * 100)
+                group.path.attr('d', line)
+            }
+
+            // Shift domain
+            x.domain([now - (limit - 2) * duration, now - duration])
+
+            // Slide x-axis left
+            axis.transition()
+                .duration(duration)
+                .ease('linear')
+                .call(x.axis)
+
+            // Slide paths left
+            paths.attr('transform', null)
+                .transition()
+                .duration(duration)
+                .ease('linear')
+                .attr('transform', 'translate(' + x(now - (limit - 1) * duration) + ')')
+                .each('end', tick)
+
+            // Remove oldest data point from each group
+            for (var name in groups) {
+                var group = groups[name]
+                group.data.shift()
+            }
+        }
+
+        tick()
+
+        </script>
+</body>
+</html>
