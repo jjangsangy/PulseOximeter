@@ -1,5 +1,4 @@
 Building a Pulse Oximeter
-
 =========================
 
 ![Demo Pulse Oximeter][cover]
