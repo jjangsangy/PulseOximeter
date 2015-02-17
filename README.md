@@ -9,10 +9,10 @@ Winner of [Mindbody API Challenge][Mindbody]
 
 ## Team Members
 
-- [Sang Han](jjangsangy@gmail.com)
-- [Joshua Wheeler](sirlanceoflompoc@gmail.com)
-- [Robin Morales](robismor@gmail.com)
-- [David Anderson](davidandersonjonie4@gmail.com)
+- [Sang Han](mailto:jjangsangy@gmail.com)
+- [Joshua Wheeler](mailto:sirlanceoflompoc@gmail.com)
+- [Robin Morales](mailto:robismor@gmail.com)
+- [David Anderson](mailto:davidandersonjonie4@gmail.com)
 
 
 Introduction
