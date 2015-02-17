@@ -1,7 +1,19 @@
 Building a Pulse Oximeter
 =========================
 
+## Sumission for [UCSB Hackathon 2015][SBHacks 2015]
+
+Winner of [Mindbody API Challenge][Mindbody]
+
 ![Demo Pulse Oximeter][cover]
+
+## Team Members
+
+- [Sang Han](jjangsangy@gmail.com)
+- [Joshua Wheeler](sirlanceoflompoc@gmail.com)
+- [Robin Morales](robismor@gmail.com)
+- [David Anderson](davidandersonjonie4@gmail.com)
+
 
 Introduction
 ------------
@@ -45,3 +57,5 @@ Effects of Oxygen Saturation
 [heme]:           http://upload.wikimedia.org/math/2/3/b/23b71ed0aaf0c57ecfc3c1dddf7ff5f1.png
 [LEDChart]:       http://www.oximetry.org/IMAGES/cpo.gif
 [Photodiode]:     http://www.learningaboutelectronics.com/images/photodiodesymbol.png
+[SBHacks 2015]:   http://ucsbhacks.com
+[Mindbody]:       http://www.ucsbhacks.com/prizes#mindbody
