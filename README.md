@@ -1,12 +1,16 @@
 Building a Pulse Oximeter
+
 =========================
+
+![Demo Pulse Oximeter][cover]
 
 Introduction
 ------------
 
 [Pulse oximetry] is a non-invasive medical diagnostic technique used to measure a persons oxygen saturation.
 
-In medicine, oxygen saturation (SaO~2), measures the percentage of hemoglobin binding sites in the bloodstream occupied by oxygen.
+In medicine, oxygen saturation (SaO2), measures the percentage of hemoglobin
+binding sites in the bloodstream occupied by oxygen.
 A puse oximeter relies on the light absorption characteristics of oxygenated/deoxygenated hemoglobin based on an oxygen-hemoglobin dissociation curve represented by the following formula.
 
 ![O2 Saturation][heme]
@@ -37,6 +41,7 @@ Effects of Oxygen Saturation
 | 55% and less  | Loss of consciousness on average    |
 
 
+[cover]:          images/cover.jpg
 [Pulse oximetry]: http://en.wikipedia.org/wiki/Pulse_oximetry
 [heme]:           http://upload.wikimedia.org/math/2/3/b/23b71ed0aaf0c57ecfc3c1dddf7ff5f1.png
 [LEDChart]:       http://www.oximetry.org/IMAGES/cpo.gif
